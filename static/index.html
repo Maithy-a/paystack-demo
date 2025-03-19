@@ -4,155 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paystack Demo</title>
+    <link rel="stylesheet" href="./res/style.css">
     <script src="https://js.paystack.co/v1/inline.js" defer></script>
     <script src="script.js" defer></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #e0e7ff, #f3f4f6);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .container:hover {
-            transform: translateY(-5px);
-        }
-
-        h1 {
-            color: #1f2937;
-            margin-bottom: 20px;
-            font-size: 24px;
-            font-weight: 600;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            color: #4b5563;
-            font-size: 14px;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 16px;
-            color: #1f2937;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        .form-group input::placeholder {
-            color: #9ca3af;
-        }
-
-        #pay-button {
-            width: 100%;
-            padding: 12px;
-            background: #3b82f6;
-            border: none;
-            border-radius: 8px;
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s ease, transform 0.1s ease;
-        }
-
-        #pay-button:hover {
-            background: #2563eb;
-            transform: translateY(-2px);
-        }
-
-        #pay-button:active {
-            transform: translateY(0);
-        }
-
-        #result {
-            margin-top: 20px;
-            font-size: 16px;
-            font-weight: 500;
-            padding: 10px;
-            border-radius: 8px;
-        }
-
-        #result.success {
-            color: #15803d;
-            background: #dcfce7;
-        }
-
-        #result.error {
-            color: #b91c1c;
-            background: #fee2e2;
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px;
-                max-width: 90%;
-            }
-
-            h1 {
-                font-size: 20px;
-            }
-
-            .form-group input, #pay-button {
-                font-size: 14px;
-                padding: 10px;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="container">
         <h1>Paystack Demo</h1>
         <div class="form-group">
             <label for="amount">Amount (KES)</label>
-            <input type="number" id="amount" placeholder="Enter amount in KES" min="1" step="0.01" required>
-        </div>
-        <div class="form-group">
-            <label for="card-number">Card Number</label>
-            <input type="text" id="card-number" placeholder="e.g., 4123 4501 3100 1381" required>
-        </div>
-        <div class="form-group">
-            <label for="expiry">Expiry (MM/YY)</label>
-            <input type="text" id="expiry" placeholder="e.g., 12/34" required>
-        </div>
-        <div class="form-group">
-            <label for="cvv">CVV</label>
-            <input type="text" id="cvv" placeholder="e.g., 100" required>
+            <input type="number" id="amount" placeholder="Enter amount in KES" min="1" step="0.05" required>
         </div>
         <div class="form-group">
             <label for="email">Email</label>

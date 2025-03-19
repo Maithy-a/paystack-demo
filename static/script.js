@@ -1,56 +1,66 @@
 // Fetch configuration from backend
 async function fetchConfig() {
-    const response = await fetch('/config');
-    return await response.json();
+    try {
+        const response = await fetch('/config');
+        if (!response.ok) throw new Error('Failed to fetch config');
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching config:', error);
+        throw error;
+    }
 }
 
 async function initializePaystack() {
-    const config = await fetchConfig();
-    const paystack = window.PaystackPop.setup({
-        key: config.paystackPublicKey,
-        callback: function(response) {
-            processPayment(response.reference, document.getElementById('amount').value);
-        },
-        onClose: function() {
+    try {
+        const config = await fetchConfig();
+        console.log('Config loaded:', config);
+
+        document.getElementById('pay-button').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const amount = document.getElementById('amount').value;
+            const email = document.getElementById('email').value;
+
             const resultDiv = document.getElementById('result');
-            resultDiv.innerText = 'Payment cancelled.';
-            resultDiv.className = 'error';
-        }
-    });
-
-    document.getElementById('pay-button').addEventListener('click', function() {
-        const amount = document.getElementById('amount').value;
-        const cardNumber = document.getElementById('card-number').value;
-        const expiry = document.getElementById('expiry').value;
-        const cvv = document.getElementById('cvv').value;
-        const email = document.getElementById('email').value;
-
-        const resultDiv = document.getElementById('result');
-        if (!amount || !cardNumber || !expiry || !cvv || !email) {
-            resultDiv.innerText = 'All fields are required.';
-            resultDiv.className = 'error';
-            return;
-        }
-
-        // Convert amount to kobo (smallest unit for KES)
-        const amountInKobo = parseFloat(amount) * 100;
-
-        paystack.checkCard({
-            cardNumber: cardNumber,
-            expiryMonth: expiry.split('/')[0],
-            expiryYear: expiry.split('/')[1],
-            cvv: cvv
-        }, function(response) {
-            if (response.status) {
-                paystack.options.amount = amountInKobo; // Dynamically set amount
-                paystack.options.email = email; // Dynamically set email
-                paystack.openIframe();
-            } else {
-                resultDiv.innerText = 'Invalid card details.';
+            if (!amount || !email) {
+                resultDiv.innerText = 'Amount and email are required.';
                 resultDiv.className = 'error';
+                return;
             }
+
+            // Convert amount to kobo (smallest unit for KES)
+            const amountInKobo = Math.round(parseFloat(amount) * 100);
+            if (isNaN(amountInKobo) || amountInKobo <= 0) {
+                resultDiv.innerText = 'Invalid amount.';
+                resultDiv.className = 'error';
+                return;
+            }
+
+            // Initialize Paystack with minimal options
+            const paystack = window.PaystackPop.setup({
+                key: config.paystackPublicKey,
+                email: email,
+                amount: amountInKobo,
+                currency: 'KES',
+                callback: function(response) {
+                    console.log('Paystack callback response:', response);
+                    processPayment(response.reference, amount);
+                },
+                onClose: function() {
+                    console.log('Paystack popup closed');
+                    resultDiv.innerText = 'Payment cancelled.';
+                    resultDiv.className = 'error';
+                }
+            });
+
+            // Open Paystack popup
+            paystack.openIframe();
         });
-    });
+    } catch (error) {
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerText = 'Error initializing Paystack: ' + error.message;
+        resultDiv.className = 'error';
+    }
 }
 
 function processPayment(reference, amount) {
@@ -61,9 +71,14 @@ function processPayment(reference, amount) {
         },
         body: JSON.stringify({ reference: reference, amount: amount })
     })
-    .then(response => response.json())
+    .then(response => {
+        console.log('Process payment response status:', response.status);
+        if (!response.ok) throw new Error('Failed to process payment');
+        return response.json();
+    })
     .then(data => {
         const resultDiv = document.getElementById('result');
+        console.log('Process payment response data:', data);
         if (data.status === 'success') {
             resultDiv.innerText = `Transaction successful! ID: ${data.transaction_id}, Amount: ${data.amount} KES`;
             resultDiv.className = 'success';
@@ -75,10 +90,18 @@ function processPayment(reference, amount) {
     .catch(err => {
         console.error('Error processing payment:', err);
         const resultDiv = document.getElementById('result');
-        resultDiv.innerText = 'Error contacting server.';
+        resultDiv.innerText = 'Error contacting server: ' + err.message;
         resultDiv.className = 'error';
     });
 }
 
 // Initialize Paystack
-document.addEventListener('DOMContentLoaded', initializePaystack);
+document.addEventListener('DOMContentLoaded', async () => {
+    if (typeof PaystackPop === 'undefined') {
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerText = 'Paystack library failed to load. Please check your internet connection.';
+        resultDiv.className = 'error';
+        return;
+    }
+    await initializePaystack();
+});
