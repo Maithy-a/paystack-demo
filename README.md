@@ -19,13 +19,6 @@ This documentation provides an overview of the Paystack Demo web application, wh
 5. **Run the Server**: Execute `python app.py`.
 6. **Access the App**: Open `http://localhost:5000` in a browser.
 
-## Testing
-- Use Paystack test cards to simulate payment scenarios:
-    - Success: Visa `4123450131001381`, Expiry: 12/34, CVV: 100.
-    - Decline: Visa `4123450131001382`, Expiry: 12/34, CVV: 100.
-- Refer to the [Paystack Test Cards](https://developers.paystack.com/docs/test-cards) for a full list.
-- The payment amount is set to 2500 KES (250000 kobo).
-
 ## Notes
 - Runs in Paystack test mode; no real payments are processed.
 - Secrets are stored in `.env` and ignored by Git via `.gitignore`.
