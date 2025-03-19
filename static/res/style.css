@@ -127,17 +127,25 @@ h1 {
     }
 }
 
-.payment-logo {
-    width: 60px;
-    height: 40px;
-    transition: transform 0.3s ease;
-    object-fit: contain;
-    mix-blend-mode: multiply;
-    /* border: solid 1px #d4d1c5; */
+.payment-logos{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }
 
-.payment-logo:hover {
+.payment-logo{
+    width:55px;
+    height: 55px;
+    object-fit:contain;
+    mix-blend-mode: multiply;
+    transition: transform 0.3s ease;
+
+}
+.payment-logo:hover{
     transform: scale(1.1);
+    filter: grayscale(100%);
 }
 
 @media (max-width: 480px) {

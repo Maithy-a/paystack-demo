@@ -16,7 +16,7 @@ async function initializePaystack() {
         console.log('Config loaded:', config);
 
         document.getElementById('pay-button').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault(); // Prevent submission
 
             const amount = document.getElementById('amount').value;
             const email = document.getElementById('email').value;
@@ -28,7 +28,7 @@ async function initializePaystack() {
                 return;
             }
 
-            // Convert amount to kobo (smallest unit for KES)
+            // Convert currency to KES
             const amountInKobo = Math.round(parseFloat(amount) * 100);
             if (isNaN(amountInKobo) || amountInKobo <= 0) {
                 resultDiv.innerText = 'Invalid amount.';
@@ -36,7 +36,7 @@ async function initializePaystack() {
                 return;
             }
 
-            // Initialize Paystack with minimal options
+            // Initialize Paystack 
             const paystack = window.PaystackPop.setup({
                 key: config.paystackPublicKey,
                 email: email,
