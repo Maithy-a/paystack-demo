@@ -12,10 +12,9 @@ This documentation provides an overview of the Paystack Demo web application, wh
 2. Install dependencies using `pip install -r requirements.txt`.
 3. Obtain Paystack test API keys from the Paystack Dashboard.
 4. Create a `.env` file to store API keys securely.Add the following and replace values:
-    ``` 
-    PAYSTACK_PUBLIC_KEY=pk_test_your_public_key_here
-    PAYSTACK_SECRET_KEY=sk_test_your_secret_key_here
-    ```
+    `PAYSTACK_PUBLIC_KEY`=pk_test_your_public_key_here
+    `PAYSTACK_SECRET_KEY`=sk_test_your_secret_key_here
+    
 5. **Run the Server**: Execute `python app.py`.
 6. **Access the App**: Open `http://localhost:5000` in a browser.
 
