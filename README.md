@@ -1,5 +1,5 @@
 # Paystack Demo Documentation
-
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 This documentation provides an overview of the Paystack Demo web application, which demonstrates Paystack payment integration in test mode. It includes setup instructions, testing guidelines, and notes for real implementation.
 
 ## Features
