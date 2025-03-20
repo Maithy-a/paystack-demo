@@ -17,10 +17,28 @@ body {
     background: white;
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);    
-    max-width: 420px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
     width: 100%;
     transition: transform 0.3s ease;
+    position: relative; 
+
+}
+
+.test-badge {
+    position: absolute;
+    top: 0; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    background: rgba(245, 159, 11, 0.523); 
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 15px;
+    border-radius: 0 0 10px 10px; 
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
 h1 {
