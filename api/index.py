@@ -1,26 +1,22 @@
-from flask import Flask, request, jsonify
+from flask import Flask, send_from_directory, request, jsonify
 from dotenv import load_dotenv
 import os
 import requests
-import logging
-from datetime import datetime
 
 # Load environment variables from .env
 load_dotenv()
 
-app = Flask(__name__, static_folder='static', static_url_path='')
-
-# Configure logging
-logging.basicConfig(
-    filename='transactions.log',
-    level=logging.INFO,
-    format='%(asctime)s - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
-)
+app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return app.send_static_file('index.html')
+    # Serve index.html
+    return send_from_directory('..', 'index.html')
+
+@app.route('/<path:path>')
+def serve_static(path):
+    # Serve other static files
+    return send_from_directory('..', path)
 
 @app.route('/config')
 def get_config():
@@ -41,7 +37,7 @@ def process_payment():
             print('Missing reference or amount')  # Debug log
             return jsonify({"status": "error", "message": "No reference or amount provided"}), 400
 
-        # Verify transaction with Paystack
+        # Verify transaction
         url = "https://api.paystack.co/transaction/verify/{}".format(reference)
         headers = {
             "Authorization": f"Bearer {os.getenv('PAYSTACK_SECRET_KEY')}",
@@ -53,10 +49,9 @@ def process_payment():
         print('Paystack verify response:', result)  # Debug log
 
         if result.get('status') and result['data']['status'] == 'success':
-            # Log the transaction
-            transaction_log = f"Transaction ID: {result['data']['reference']}, Amount: {amount} KES, Status: Success, Date: {datetime.now()}"
-            logging.info(transaction_log)
-            print(f"Logged transaction: {transaction_log}")  # Debug log
+            # Log to terminal for debugging
+            transaction_log = f"Transaction ID: {result['data']['reference']}, Amount: {amount} KES, Status: Success"
+            print(f"Processed transaction: {transaction_log}")  # Debug log
 
             return jsonify({
                 "status": "success",

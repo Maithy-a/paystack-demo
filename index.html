@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paystack</title>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="res/favicon_io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="res/favicon_io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="res/favicon_io/favicon-16x16.png">
+  <link rel="manifest" href="res/favicon_io/site.webmanifest">
+
+  <link rel="stylesheet" href="res//style.css">
+
+  <script src="https://js.paystack.co/v1/inline.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <div class="container">
+
+    <h1>Paystack<span> ✮⋆˙</span></h1>
+
+    <div class="form-group">
+      <label for="amount">Amount (KES)</label>
+      <input type="number" id="amount" placeholder="Enter amount in KES" min="1000" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="jonedoe@gmail.com" required>
+    </div>
+
+    <div class="form-group">
+      <button id="pay-button">Pay Now</button>
+      <div id="result"></div>
+    </div>
+
+    <div class="payment-logos">
+      <img src="res/images/mpesa.webp" alt="M-Pesa" title="M-Pesa" class="payment-logo">
+      <img src="res/images/Airtel-Money.png" alt="Airtel Money" title="Airtel Money" class="payment-logo">
+      <img src="res/images/visa.svg" alt="mastercard" title="mastercard" class="payment-logo">
+      <img src="res/images/mastercard.svg" alt="mastercard" title="mastercard" class="payment-logo">
+    </div>
+
+    <div class="end">
+      <p><span>Supported Options
+        </span>⤴</p>
+    </div>
+
+  </div>
+
+</body>
+
+</html>
