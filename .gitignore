@@ -1,19 +1,5 @@
-# Environment variables
 .env
-
-#Jetbrains IDE
 .idea/
-
-#vs code
 .vscode/
-
-# Virtual environments
 venv/
-
-# Python bytecode
-__pycache__/
-*.py[cod]
-*$py.class
-
-# Logs
-*.log
+.log
