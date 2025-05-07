@@ -18,13 +18,3 @@ This documentation provides an overview of the Paystack Demo web application, wh
 5. **Run the Server**: Execute `python api\app.py`.
 6. **Access the App**: Open `http://localhost:5000` in a browser.
 
-## Notes
-- Runs in Paystack test mode; no real payments are processed.
-- Secrets are stored in `.env` and ignored by Git via `.gitignore`.
-- Requires internet for Paystack API.
-- Uses KES currency for Kenya.
-
-## Real Implementation
-- Use live Paystack keys for real transactions.
-- Use HTTPS in production.
-
