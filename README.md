@@ -7,10 +7,9 @@ This documentation provides an overview of the Paystack Demo web application, wh
 - Supports KES (Kenyan Shilling) as the currency.
 
 ## Setup Instructions
-1. Install Python 3.x.
-2. Install dependencies using `pip install -r requirements.txt`.
-3. Obtain Paystack test API keys from the Paystack Dashboard.
-4. Create a `.env` file to store API keys securely. Add the following and replace values:
+1. Install dependencies using `pip install -r requirements.txt`.
+2. Obtain Paystack test API keys from the Paystack Dashboard.
+3. Create a `.env` file to store API keys securely. Add the following and replace values:
     ```
     PAYSTACK_PUBLIC_KEY=pk_test_your_public_key_here
     PAYSTACK_SECRET_KEY=sk_test_your_secret_key_here
